@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>RealtimeVoiceChat</Name>
+  <Repository>guy16510/realtimevoicechat-unraid</Repository>
+  <Registry>https://hub.docker.com/r/guy16510/realtimevoicechat-unraid/</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/guy16510/RealtimeVoiceChat-Unraid/issues</Support>
+  <Project>https://github.com/guy16510/RealtimeVoiceChat-Unraid</Project>
+  <Overview>Have a natural, spoken conversation with an AI using just your voice, receiving spoken responses in near real-time. The application uses your microphone to capture speech, converts it to text, processes it with an LLM, converts the response back to speech, and streams it back to you.</Overview>
+  <Category>AI: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8000]</WebUI>
+ <TemplateURL>https://raw.githubusercontent.com/guy16510/RealtimeVoiceChat-Unraid/main/unraid/template/realtimevoicechat.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/guy16510/RealtimeVoiceChat-Unraid/main/unraid/images/realtimevoicechat-icon.png</Icon>
+  <ExtraParams>--gpus all</ExtraParams>
+  <Description>This application lets you chat with a Large Language Model (LLM) using just your voice, receiving spoken responses in near real-time.
+
+Features:
+- Fluid Conversation: Speak and listen, just like a real chat
+- Real-Time Feedback: See partial transcriptions and AI responses as they happen
+- Low Latency Focus: Optimized architecture using audio chunk streaming
+- Smart Turn-Taking: Dynamic silence detection adapts to the conversation pace
+- Flexible AI Brains: Pluggable LLM backends (Ollama default, OpenAI support)
+- Customizable Voices: Choose from different Text-to-Speech engines
+- Web Interface: Clean and simple UI using Vanilla JS and the Web Audio API
+
+Note: A CUDA-enabled NVIDIA GPU is highly recommended for optimal performance. CPU-only operation will be significantly slower.</Description>
+  
+  <!-- CONFIG -->
+  <Config Name="WebUI Port" Target="8000" Default="8000" Mode="tcp" Description="WebUI port for accessing the application" Type="Port" Display="always" Required="true" Mask="false"/>
+  
+  <Config Name="Ollama Port" Target="11434" Default="11434" Mode="tcp" Description="Port for Ollama API" Type="Port" Display="always" Required="true" Mask="false"/>
+  
+  <Config Name="App Data" Target="/app/data" Default="/mnt/user/appdata/realtimevoicechat" Mode="rw" Description="Application data folder" Type="Path" Display="always" Required="true" Mask="false"/>
+  
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User ID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group ID" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  
+  <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  
+  <Config Name="LLM_PROVIDER" Target="LLM_PROVIDER" Default="ollama" Mode="" Description="LLM provider (ollama or openai)" Type="Variable" Display="always" Required="false" Mask="false"/>
+  
+  <Config Name="LLM_MODEL" Target="LLM_MODEL" Default="hf.co/bartowski/huihui-ai_Mistral-Small-24B-Instruct-2501-abliterated-GGUF:Q4_K_M" Mode="" Description="LLM model name" Type="Variable" Display="always" Required="false" Mask="false"/>
+  
+  <Config Name="OPENAI_API_KEY" Target="OPENAI_API_KEY" Default="" Mode="" Description="OpenAI API Key (required if using OpenAI as provider)" Type="Variable" Display="always" Required="false" Mask="true"/>
+  
+  <Config Name="TTS_ENGINE" Target="TTS_ENGINE" Default="kokoro" Mode="" Description="Text-to-speech engine (kokoro, coqui, or orpheus)" Type="Variable" Display="always" Required="false" Mask="false"/>
+  
+  <Config Name="USE_GPU" Target="USE_GPU" Default="true" Mode="" Description="Enable GPU acceleration (requires NVIDIA GPU)" Type="Variable" Display="always" Required="false" Mask="false"/>
+</Container>
